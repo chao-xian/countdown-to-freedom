@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>THEY CAN NEVER TAKE AWAY OUR FREEDOM!</title>
+    <script src="moment.min.js"></script>
+    <script src="countdown.min.js"></script>
+    <script src="moment-countdown.min.js"></script>
+    <script charset="utf-8">
+      let updateCountdown = function() {
+        let countdownTxt = moment('2016-11-11').countdown().toString();
+        console.log(countdownTxt);
+        document.getElementById('countdown').innerHTML = countdownTxt;
+      };
+
+      window.addEventListener("load", function load(event){
+        window.removeEventListener("load", load, false); //remove listener, no longer needed
+        updateCountdown();
+      },false);
+
+      window.setInterval(function() {
+        updateCountdown();
+      }, 1000);
+    </script>
+  </head>
+  <body>
+    <h1>FREEDOM!</h1>
+    <div id="countdown">
+
+    </div>
+  </body>
+</html>
