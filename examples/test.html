@@ -1,29 +1,39 @@
 <html>
 	<head>
-		<link rel="stylesheet" href="compiled/flipclock.css">
+		<link rel="stylesheet" href="../compiled/flipclock.css">
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-		<script src="compiled/flipclock.js"></script>
+		<script src="../compiled/flipclock.js"></script>		
 	</head>
 	<body>
 		<div class="clock" style="margin:2em;"></div>
 
-    <p style="font: bold 62px 'Helvetica Neue', Helvetica, sans-serif;">&#8230;until it's all over</p>
-
 		<script type="text/javascript">
 			var clock;
-
+			
 			$(document).ready(function() {
-
-				// Grab the current date
+				// Set dates.
+				var futureDate  = new Date("October 9, 2014 12:02 PM EDT");
 				var currentDate = new Date();
-
-				// Set date to 10 November at 4:30pm
-				var futureDate  = new Date('November 10, 2016 16:00:00');
 
 				// Calculate the difference in seconds between the future and current date
 				var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
+
+				// Calculate day difference and apply class to .clock for extra digit styling.
+				function dayDiff(first, second) {
+					return (second-first)/(1000*60*60*24);
+				}
+
+				if (dayDiff(currentDate, futureDate) < 100) {
+					$('.clock').addClass('twoDayDigits');
+				} else {
+					$('.clock').addClass('threeDayDigits');
+				}
+
+				if(diff < 0) {
+					diff = 0;
+				}
 
 				// Instantiate a coutdown FlipClock
 				clock = $('.clock').FlipClock(diff, {
@@ -32,6 +42,6 @@
 				});
 			});
 		</script>
-
+		
 	</body>
 </html>
